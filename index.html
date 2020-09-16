@@ -104,8 +104,10 @@
 
         .demo-zone {
             display: block;
-            width: 100%;
+            width:60%;
             min-height: 200px;
+            text-align:left;
+            max-width:1000px;
         }
 
         .mini-demo-zone {
@@ -144,9 +146,9 @@
             margin-bottom: 2px;
         }
 
-            button.demo:hover {
-                background-image: linear-gradient(to top,#fff 0,#e0e0e0 100%);
-            }
+        button.demo:hover {
+            background-image: linear-gradient(to top,#fff 0,#e0e0e0 100%);
+        }
 
         .presentation {
             background: #eee;
@@ -154,19 +156,20 @@
             border: 1px solid grey;
             border-radius: 8px;
             line-height: 20px;
-            padding: 8px;
+            padding: 8px 0px 8px 8px;
             margin-bottom: 40px;
-            width: 90%;
-            max-width: 800px;
+            width:60%;
+            max-width:1000px;
             font-size: 14px;
         }
         .demo-zone table{
             border-spacing: 0;
             border-collapse: collapse;
             margin-bottom:10px;
-            border-radius: 6px;;
+            border: 1px solid #ccc;
+            width:100%;
         }
-
+      
         .demo-zone tr th  {
             background-color:#eee;
         }
@@ -174,6 +177,29 @@
             padding: 8px 8px 8px 4px !important;
             border: 1px solid #ccc;
         }
+        @media screen and (max-width: 1200px) {
+            .demo-zone {
+                display: block;
+                width:75%;
+                min-height: 200px;
+                text-align:left;
+            }
+            .presentation {
+                width:75%;
+            }
+        }
+        @media screen and (max-width: 800px) {
+            .demo-zone {
+                display: block;
+                width:90%;
+                min-height: 200px;
+                text-align:left;
+            }
+            .presentation {
+                width:90%;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -194,8 +220,8 @@
         <b>paginateTable()</b> <br/>
         An old function of mine circa 2010, that paginates an existing TABLE
         </p>
-        <div class="demo-zone" style="text-align:left;width:50%;">
-            <table  id="demo-ajax" style="width:100%;border: 1px solid #ccc;">
+        <div class="demo-zone">
+            <table  id="demo-ajax">
                 <thead>
                     <tr style="border-color: inherit;">
                         <th scope="col">Id</th>
@@ -204,7 +230,9 @@
                         <th scope="col">Salary</th>
                     </tr>
                 </thead>
-                <tbody id="demo-ajax-view"></tbody>
+                <tbody id="demo-ajax-view">
+                    <tr><td>1</td><td>Tiger Nixon</td><td>61</td><td>320800</td></tr><tr><td>2</td><td>Garrett Winters</td><td>63</td><td>170750</td></tr><tr><td>3</td><td>Ashton Cox</td><td>66</td><td>86000</td></tr><tr><td>4</td><td>Cedric Kelly</td><td>22</td><td>433060</td></tr><tr><td>5</td><td>Airi Satou</td><td>33</td><td>162700</td></tr><tr><td>6</td><td>Brielle Williamson</td><td>61</td><td>372000</td></tr><tr><td>7</td><td>Herrod Chandler</td><td>59</td><td>137500</td></tr><tr><td>8</td><td>Rhona Davidson</td><td>55</td><td>327900</td></tr><tr><td>9</td><td>Colleen Hurst</td><td>39</td><td>205500</td></tr><tr><td>10</td><td>Sonya Frost</td><td>23</td><td>103600</td></tr><tr><td>11</td><td>Jena Gaines</td><td>30</td><td>90560</td></tr><tr><td>12</td><td>Quinn Flynn</td><td>22</td><td>342000</td></tr><tr><td>13</td><td>Charde Marshall</td><td>36</td><td>470600</td></tr><tr><td>14</td><td>Haley Kennedy</td><td>43</td><td>313500</td></tr><tr><td>15</td><td>Tatyana Fitzpatrick</td><td>19</td><td>385750</td></tr><tr><td>16</td><td>Michael Silva</td><td>66</td><td>198500</td></tr><tr><td>17</td><td>Paul Byrd</td><td>64</td><td>725000</td></tr><tr><td>18</td><td>Gloria Little</td><td>59</td><td>237500</td></tr><tr><td>19</td><td>Bradley Greer</td><td>41</td><td>132000</td></tr><tr><td>20</td><td>Dai Rios</td><td>35</td><td>217500</td></tr><tr><td>21</td><td>Jenette Caldwell</td><td>30</td><td>345000</td></tr><tr><td>22</td><td>Yuri Berry</td><td>40</td><td>675000</td></tr><tr><td>23</td><td>Caesar Vance</td><td>21</td><td>106450</td></tr><tr><td>24</td><td>Doris Wilder</td><td>23</td><td>85600</td></tr>
+                </tbody>
             </table>
             <div id="demo-ajax-bottom" style="width:100%;text-align:center;"></div>
         </div>
@@ -212,40 +240,15 @@
 
 <script src="./paginateTable.js"></script>
 <script>
-var httpRequest = new XMLHttpRequest();
-if (httpRequest) {
-    httpRequest.onreadystatechange = function () {
-        if (httpRequest.readyState === XMLHttpRequest.DONE) {
-            if (httpRequest.status === 200) {
-                let response = null;
-                try{
-                   response = JSON.parse(httpRequest.responseText);
-
-                }catch(error){
-                    console.error(error);
-                }
-                if(response && response.data){
-                    let html = "";
-                    response.data.forEach(function(x){
-                        html += "<tr>";
-                        html += "<td>"+x.id+"</td>";  
-                        html += "<td>"+x.employee_name+"</td>";  
-                        html += "<td>"+x.employee_age+"</td>";  
-                        html += "<td>"+x.employee_salary+"</td>";  
-                        html += "</tr>";
-                    });
-                    document.getElementById("demo-ajax-view").innerHTML= html;
-                    pagineTable("demo-ajax", 10, 0, "demo-ajax-bottom",40);
-                }
-
-            } else {
-                alert('There was a problem with the request.');
-            }
-        }
-    };
-
-httpRequest.open('GET', 'https://dummy.restapiexample.com/api/v1/employees');
-httpRequest.send();
-}
-        </script>
+debugger
+ setTableSize();
+ window.onresize = setTableSize;
+ function setTableSize(){
+    var h = window.innerHeight - 200;
+    var nr = Math.floor(h / 95) +3;
+    if(nr > 12 ) nr = 12;
+	if(nr < 4) nr = 4;
+    pagineTable("demo-ajax", nr, 0, "demo-ajax-bottom",40);
+ }
+ </script>
 </html>
