@@ -20,7 +20,7 @@
         .darkBlue {
             color: darkblue;
         }
-
+		
         .navbar {
             position: relative;
             border: 1px solid #080808;
@@ -81,19 +81,6 @@
             text-decoration: none;
         }
 
-        @media (max-width: 640px) {
-            .navbar-brand {
-                width: 100%;
-            }
-
-            .navbar-links {
-                padding-left: 0;
-            }
-
-            button.demo {
-                margin-right: 100% !important;
-            }
-        }
 
         #container {
             padding-top: 10px;
@@ -151,17 +138,13 @@
         }
 
         .presentation {
-            background: #eee;
-            color: #2e44b9;
-            border: 1px solid grey;
-            border-radius: 8px;
-            line-height: 20px;
+            color: #0075FF;
+            line-height: 32px;
             padding: 8px 0px 8px 8px;
-            margin-bottom: 40px;
-            width:60%;
-            max-width:1000px;
-            font-size: 14px;
+            margin-bottom: 20px;
+            font-size: 16px;
         }
+		
         .demo-zone table{
             border-spacing: 0;
             border-collapse: collapse;
@@ -173,10 +156,20 @@
         .demo-zone tr th  {
             background-color:#eee;
         }
+
         .demo-zone table th, table td {
             padding: 8px 8px 8px 4px !important;
             border: 1px solid #ccc;
         }
+
+        #mobile-title{
+            display:none;
+        }
+
+        #plain-title{
+            display:inline-block;
+        }
+
         @media screen and (max-width: 1200px) {
             .demo-zone {
                 display: block;
@@ -184,12 +177,21 @@
                 min-height: 200px;
                 text-align:left;
             }
-            .presentation {
-                width:75%;
+            #mobile-title{
+                display:none;
             }
-			
+            #plain-title{
+                display:inline-block;
+            }
         }
+
         @media screen and (max-width: 800px) {
+		    #container {
+				padding-top: 0px;
+				padding-left: 10px;
+				width: 100%;
+				font-size: 13px;
+			}
             .demo-zone {
                 display: block;
                 width:90%;
@@ -197,18 +199,54 @@
                 text-align:left;
             }
             .presentation {
-                width:90%;
 				margin-bottom: 10px;
+				font-size: 16px;
+            }
+            #mobile-title{
+                display:none;
+            }
+            #plain-title{
+                display:inline-block;
             }
         }
+        
+        @media (max-width: 640px) {
+            .navbar{
+                width: calc(100% - 2px); 
+                margin:0;
+            }
+            .navbar-brand {
+                width: 100%;
+            }
 
+            .navbar-links {
+                padding-left: 0;
+            }
+
+            button.demo {
+                margin-right: 100% !important;
+            }
+            #mobile-title{
+                display:block;
+                float:right;
+                color: #0075FF;
+                margin-right:40px;            
+            }
+            #plain-title{
+                display:none;
+            }
+            .presentation {
+				margin-bottom: 6px;
+				font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
     <nav class="navbar">
             <div class="navbar-header">
                 <a class="navbar-brand" href="#">
-                    Experiments with vanilla js
+                    Experiments with vanilla js <span id="mobile-title">paginateTable()</span>
                 </a>
             </div>
             <ul class="navbar-links">
@@ -217,10 +255,11 @@
             </ul>
     </nav>
     <div id="container">
-        <p class="presentation">
-        <b>paginateTable()</b> <br/>
-        An old function of mine circa 2010, that paginates an existing TABLE
-        </p>
+		<div class="presentation">
+        <span id="plain-title">paginateTable()</span>
+		A vanillajs function to paginate an existing TABLE.
+		</div>
+
         <div class="demo-zone">
             <table  id="demo-ajax">
                 <thead>
@@ -244,8 +283,9 @@
  setTableSize();
  window.onresize = setTableSize;
  function setTableSize(){
-    var h = window.innerHeight - 200;
-    var nr = Math.floor(h / 95) +3;
+    var top = document.getElementById("demo-ajax").getBoundingClientRect().top;
+    var availHeight = window.innerHeight - top - 80;
+    var nr = Math.floor(availHeight / 40);
     if(nr > 12 ) nr = 12;
 	if(nr < 4) nr = 4;
     pagineTable("demo-ajax", nr, 0, "demo-ajax-bottom",40);
