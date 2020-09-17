@@ -284,6 +284,7 @@
  window.onresize = setTableSize;
  function setTableSize(){
     var top = document.getElementById("demo-ajax").getBoundingClientRect().top;
+    var bottom = window.innerWidth <= 640 ? 100 : 80;
     var availHeight = window.innerHeight - top - 80;
     var nr = Math.floor(availHeight / 40);
     if(nr > 12 ) nr = 12;
