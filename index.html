@@ -283,13 +283,14 @@
  setTableSize();
  window.onresize = setTableSize;
  function setTableSize(){
+    var rowHeight = window.innerWidth <= 640 ? 32 : 40;
     var top = document.getElementById("demo-ajax").getBoundingClientRect().top;
-    var bottom = window.innerWidth <= 640 ? 100 : 80;
-    var availHeight = window.innerHeight - top - 80;
-    var nr = Math.floor(availHeight / 40);
+    var bottom = window.innerWidth <= 640 ? 160 : 100;
+    var availHeight = window.innerHeight - top - bottom;
+    var nr = Math.floor(availHeight / rowHeight);
     if(nr > 12 ) nr = 12;
 	if(nr < 4) nr = 4;
-    pagineTable("demo-ajax", nr, 0, "demo-ajax-bottom",40);
+    pagineTable("demo-ajax", nr, 0, "demo-ajax-bottom",rowHeight);
  }
  </script>
 </html>

@@ -4,4 +4,4 @@ Old script from 2010 tant could be useful and updated
 
 More explanations to come
 
-https://philippemarcmeyer.github.io/paginateTable?c=202009170845
+https://philippemarcmeyer.github.io/paginateTable?c=202009170855
